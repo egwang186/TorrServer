@@ -68,6 +68,7 @@ func NewTorrent(spec *torrent.TorrentSpec, bt *BTServer) (*Torrent, error) {
 
 	trackers := utils.GetTrackerFromFile()
 	if len(trackers) > 0 {
+	log.TLogln("trackers数目:", len(trackers))
 		spec.Trackers = append(spec.Trackers, [][]string{trackers}...)
 	}
 
