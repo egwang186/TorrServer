@@ -62,8 +62,9 @@ function getLang() {
 }
 
 function getIP() {
-  [ -z "`which dig`" ] && serverIP=$('127.0.0.1' myip.opendns.com resolver1.opendns.com | tail -n1 | cut -d' ' -f4-) || serverIP=$(dig +short myip.opendns.com @resolver1.opendns.com) || serverIP='127.0.0.1'
-  # echo $serverIP
+  [ -z "`which dig`" ] && serverIP=$(host myip.opendns.com resolver1.opendns.com | tail -n1 | cut -d' ' -f4-) || serverIP=$(dig +short myip.opendns.com @resolver1.opendns.com) || serverIP='127.0.0.1'
+  echo 'serverIP:'
+  echo $serverIP
 }
 
 function uninstall() {
@@ -353,6 +354,8 @@ EOF
   systemctl daemon-reload 2>/dev/null
   systemctl enable $serviceName.service 2>/dev/null # enable --now
   systemctl restart $serviceName.service 2>/dev/null
+  echo 'host:'
+  echo host
   getIP
   [[ $lang == "en" ]] && {
     echo ""
